@@ -4,6 +4,7 @@
   "description": "- stdin = url to recipe - stdout = markdown",
   "main": "index.js",
   "scripts": {
+    "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,5 +12,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.3"
   }
 }
