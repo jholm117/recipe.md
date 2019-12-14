@@ -2,6 +2,7 @@ import * as readline from 'readline';
 import * as request from 'request';
 import * as cheerio from 'cheerio';
 import { AllRecipes, Profile, CookieAndKate, TheEndlessMeal } from './profile';
+import { TheSpruceEats } from './profile/thespruceeats';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -35,6 +36,7 @@ const profiles: Profile[] = [
   new AllRecipes,
   new CookieAndKate,
   new TheEndlessMeal,
+  new TheSpruceEats,
 ];
 
 interface Recipe {
