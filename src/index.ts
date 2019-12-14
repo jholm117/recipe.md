@@ -1,6 +1,7 @@
-const readline = require('readline');
-const request = require("request");
-const cheerio = require('cheerio');
+import * as readline from 'readline';
+import * as request from 'request';
+import * as cheerio from 'cheerio';
+import { AllRecipes, Profile, CookieAndKate, TheEndlessMeal } from './profile';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -30,19 +31,31 @@ function lstToString(lst){
   return lst.map(el => `${el}\n`).join('');
 }
 
-function readInput(url){
-  request(url, (error, response, data) => {
+const profiles: Profile[] = [
+  new AllRecipes,
+  new CookieAndKate,
+  new TheEndlessMeal,
+];
+
+interface Recipe {
+  title: string;
+  ingredients: string[];
+  directions: string[];
+}
+
+function readInput(url: string){
+  request(url, (error, _response, data) => {
     error && console.log('error', error);
     const $ = cheerio.load(data);
-    const title = $('#recipe-main-content').text();
-    const ingredients = $('span[itemprop=recipeIngredient]').map((i, el) => $(el.firstChild).text()).get();
-    const directions = $('ol[itemprop=recipeInstructions] li span').map((i, el) => $(el.firstChild).text().trim()).get();
+    const chosenProfile = profiles.find((profile) => url.includes(profile.domain));
+    !chosenProfile && console.error('url not supported', chosenProfile);
 
-    const recipe = {
-      title,
-      ingredients,
-      directions,
+    const recipe: Recipe = {
+      title: chosenProfile.title($),
+      ingredients: chosenProfile.ingredients($),
+      directions: chosenProfile.directions($),
     };
+
     process.stdout.write(markdown(recipe));  
   })
 }
