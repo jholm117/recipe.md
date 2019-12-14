@@ -7,6 +7,7 @@
 
 - allrecipes.com
 - cookieandkate.com
+- thespruceeats.com
 
 ## Goals
 
