@@ -1,11 +1,9 @@
-import { AllRecipes } from "./allRecipes";
+import { AllRecipes } from './allrecipes';
 import { CookieAndKate } from "./cookieandkate";
 import { TheEndlessMeal } from "./theendlessmeal";
-import { Profile } from "./profile";
 
 export { 
   AllRecipes, 
   CookieAndKate,
-  Profile,
   TheEndlessMeal,
 };
