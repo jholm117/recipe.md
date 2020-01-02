@@ -8,7 +8,7 @@ interface RecipeDisplayProps {
 export function RecipeDisplay({recipe}: RecipeDisplayProps) {
   const { title, ingredients, directions } = recipe;
   return (
-    <div>
+    <div className="container">
       <h1>{title}</h1>
       <hr />
       <h2>Ingredients</h2>

@@ -15,11 +15,9 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <div className="container">
-          {recipe ? 
-          <RecipeDisplay recipe={recipe}/> : 
-          <LandingPage onSubmit={onSubmit} />}
-        </div>
+        {recipe ? 
+        <RecipeDisplay recipe={recipe}/> : 
+        <LandingPage onSubmit={onSubmit} />}
       </header>
     </div>
   );
