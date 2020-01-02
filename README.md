@@ -21,3 +21,4 @@
 ## Issues
 
 - module exports
+- search state not in URL
