@@ -37,7 +37,6 @@ export interface Recipe {
 export async function readInput(url: string): Promise<Recipe | null> {
   const response = await fetch(url);
   const text = await response.text();
-  // error && console.log('error', error);
   const $ = cheerio.load(text);
   const chosenProfile = profiles.find((profile) => url.includes(profile.domain));
   if(!chosenProfile){
