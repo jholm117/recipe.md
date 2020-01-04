@@ -22,3 +22,16 @@
 
 - module exports
 - search state not in URL
+- CORS
+
+## Server
+
+- node express
+- one endpoint
+  - request: url
+  - response: recipe info
+- graphql?
+  - good to learn
+  - take more time
+  - unnecessary
+- deploy to heroku
