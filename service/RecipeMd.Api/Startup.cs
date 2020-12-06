@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using RecipeMd.Backend;
 using RecipeMd.Domain.Interfaces;
 using RecipeMd.Domain.Services;
 using Serilog;
+using Serilog.Events;
 
 namespace RecipeMd.Api
 {
@@ -24,13 +26,18 @@ namespace RecipeMd.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews(options =>
+            services.AddControllers(options =>
             {
                 options.OutputFormatters.Insert(0, new MarkdownOutputFormatter());
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RecipeMd", Version = "v1" });
+            });
+
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
+            // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
 
             services.AddHealthChecks();
 
@@ -46,6 +53,8 @@ namespace RecipeMd.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecipeMd v1"));
             }
             else
             {
@@ -53,31 +62,32 @@ namespace RecipeMd.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging(options => options.GetLevel = (context, NumberFormatInfo, exception) =>
+            {
+                return context.Request.Path.ToString() switch
+                {
+                    "/health/live" => LogEventLevel.Debug,
+                    "/health/ready" => LogEventLevel.Debug,
+                    _ => LogEventLevel.Information
+                };
+            });
 
             app.UseHttpsRedirection();
             //app.UseStaticFiles();
-            app.UseSpaStaticFiles(new StaticFileOptions
-            {
-                // OnPrepareResponse = context =>
-                // {
-                //     context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
-                //     context.Context.Response.Headers.Add("Expires", "0");
-                // }
-            });
+            // app.UseSpaStaticFiles(new StaticFileOptions
+            // {
+            // OnPrepareResponse = context =>
+            // {
+            //     context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            //     context.Context.Response.Headers.Add("Expires", "0");
+            // }
+            // });
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "recipe",
-                    pattern: "recipe/{*uri}",
-                    defaults: new { controller = "Recipe", action = "Get" });
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-
+                endpoints.MapControllers();
 
                 endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions()
                 {
@@ -90,17 +100,16 @@ namespace RecipeMd.Api
                 });
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            // app.UseSpa(spa =>
+            // {
+            //     spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
 
-                }
-            });
+            //     }
+            // });
         }
     }
 }
