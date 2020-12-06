@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 
 COPY *.sln .
-COPY RecipeMd.Api/*.csproj RecipeMd.Api/
-COPY RecipeMd.Domain/*.csproj RecipeMd.Domain/
-COPY RecipeMd.Backend/*.csproj RecipeMd.Backend/
+COPY RecipeMd.Api/RecipeMd.Api.csproj RecipeMd.Api/
+COPY RecipeMd.Domain/RecipeMd.Domain.csproj RecipeMd.Domain/
+COPY RecipeMd.Backend/RecipeMd.Backend.csproj RecipeMd.Backend/
 
 RUN dotnet restore
 
