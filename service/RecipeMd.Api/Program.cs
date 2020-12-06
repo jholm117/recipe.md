@@ -11,7 +11,7 @@ namespace RecipeMd.Api
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Debug()
+                        .MinimumLevel.Information()
                         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                         .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
                         .Enrich.FromLogContext()
