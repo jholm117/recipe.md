@@ -10,11 +10,11 @@ namespace RecipeMd.Backend
 {
     public class Parser : IParser
     {
-        public async Task<Recipe> ParseRecipeHtml(string uri, CancellationToken cancellationToken)
+        public async Task<Recipe> ParseRecipeHtml(Uri uri, CancellationToken cancellationToken)
         {
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(uri, cancellation: cancellationToken);
+            var document = await context.OpenAsync(uri.OriginalString, cancellation: cancellationToken);
             var selectors = ChooseSelectors(uri);
             var title = document.QuerySelector(selectors.TitleSelector).TextContent;
             var ingredients = document.QuerySelectorAll(selectors.IngredientSelector).Select(x => x.TextContent);
@@ -28,10 +28,9 @@ namespace RecipeMd.Backend
             };
         }
 
-        private static RecipeCssSelectors ChooseSelectors(string uri)
+        private static RecipeCssSelectors ChooseSelectors(Uri uri)
         {
-            var host = new Uri(uri).Host;
-            return host switch
+            return uri.Host switch
             {
                 "cookieandkate.com" => CookieAndKate,
                 _ => null,

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using RecipeMd.Domain.Interfaces;
@@ -15,7 +16,7 @@ namespace RecipeMd.Domain.Services
             this.markdownGenerator = markdownGenerator;
         }
 
-        public async Task<string> TranslateToMarkdownAsync(string uri, CancellationToken cancellationToken)
+        public async Task<string> TranslateToMarkdownAsync(Uri uri, CancellationToken cancellationToken)
         {
             var recipe = await parser.ParseRecipeHtml(uri, cancellationToken);
             return markdownGenerator.Generate(recipe);
