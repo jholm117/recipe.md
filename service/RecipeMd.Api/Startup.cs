@@ -84,6 +84,7 @@ namespace RecipeMd.Api
             // });
 
             app.UseRouting();
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {
