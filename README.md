@@ -20,20 +20,15 @@
 - tree instructions (multiple methods)
 - pictures
 
-## Issues
+## TODO
 
-- module exports
-- search state not in URL
-- CORS
-
-## Server
-
-- node express
-- one endpoint
-  - request: url
-  - response: recipe info
-- graphql?
-  - good to learn
-  - take more time
-  - unnecessary
-- deploy to heroku
+- response caching
+- publish chrome extension
+- api validation
+- add more site selectors
+- add recipe author to template
+- add source url to template
+- get deploy pipeline IaC
+- run snapshot test job on schedule
+- add react frontend
+- add /supported-sites
