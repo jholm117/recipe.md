@@ -10,10 +10,10 @@ namespace RecipeMd.Api.Controllers
     [Route("[controller]")]
     public class RecipeController : ControllerBase
     {
-        private readonly IRecipeDocumentTranslator recipeDocumentTranslator;
-        public RecipeController(IRecipeDocumentTranslator recipeDocumentTranslator)
+        private readonly IRecipeService recipeService;
+        public RecipeController(IRecipeService recipeService)
         {
-            this.recipeDocumentTranslator = recipeDocumentTranslator;
+            this.recipeService = recipeService;
         }
 
         [HttpGet]
@@ -21,7 +21,7 @@ namespace RecipeMd.Api.Controllers
         [Produces("text/markdown")]
         public Task<string> Get(string uri, CancellationToken cancellationToken)
         {
-            return recipeDocumentTranslator.TranslateToMarkdownAsync(new Uri($"https://{uri}"), cancellationToken);
+            return recipeService.TranslateToMarkdownAsync(new Uri($"https://{uri}"), cancellationToken);
         }
     }
 
