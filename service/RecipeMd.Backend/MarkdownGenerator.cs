@@ -1,7 +1,7 @@
 using System;
 using HandlebarsDotNet;
 using RecipeMd.Domain.Interfaces;
-using RecipeMd.Domain.Models;
+using RecipeMd.Domain.Dtos;
 
 namespace RecipeMd.Backend
 {
@@ -9,13 +9,13 @@ namespace RecipeMd.Backend
     {
         private readonly Func<object, string> template;
 
-        public MarkdownGenerator(string templateSource)
+        public MarkdownGenerator(IConfigurationProvider configurationProvider)
         {
             Handlebars.RegisterHelper("inc", (writer, context, parameters) => writer.WriteSafeString($"{(int)parameters[0] + 1}"));
-            template = Handlebars.Compile(templateSource);
+            template = Handlebars.Compile(configurationProvider.HandlebarsTemplateSource);
         }
 
-        public string Generate(Recipe recipe)
+        public string Generate(RecipeDto recipe)
         {
             return template(recipe);
         }

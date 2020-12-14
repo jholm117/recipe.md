@@ -1,10 +1,10 @@
-using RecipeMd.Domain.Models;
+using RecipeMd.Domain.Dtos;
 
 namespace RecipeMd.Domain.Interfaces
 {
     public interface IMarkdownGenerator
     {
-        public string Generate(Recipe recipe);
+        public string Generate(RecipeDto recipe);
     }
 
 }

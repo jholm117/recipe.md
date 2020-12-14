@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace RecipeMd.Domain.Models
+namespace RecipeMd.Domain.Dtos
 {
-    public class Recipe
+    public class RecipeDto
     {
         public string Title { get; set; }
         public IList<string> Directions { get; set; }

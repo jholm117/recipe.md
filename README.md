@@ -31,4 +31,4 @@
 - get deploy pipeline IaC
 - run snapshot test job on schedule
 - add react frontend
-- add /supported-sites
+- serve recipes in html (MarkdownSharp)
