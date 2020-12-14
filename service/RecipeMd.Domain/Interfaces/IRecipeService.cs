@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 
 namespace RecipeMd.Domain.Interfaces
 {
-
-    public interface IRecipeDocumentTranslator
+    public interface IRecipeService
     {
         public Task<string> TranslateToMarkdownAsync(Uri uri, CancellationToken cancellationToken);
 

@@ -4,40 +4,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using AngleSharp;
 using RecipeMd.Domain.Interfaces;
-using RecipeMd.Domain.Models;
+using RecipeMd.Domain.Dtos;
 
 namespace RecipeMd.Backend
 {
     public class Parser : IParser
     {
-        public async Task<Recipe> ParseRecipeHtml(Uri uri, CancellationToken cancellationToken)
+        public async Task<RecipeDto> ParseRecipeHtml(Uri uri, IRecipeSiteProfile profile, CancellationToken cancellationToken)
         {
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
             var document = await context.OpenAsync(uri.OriginalString, cancellation: cancellationToken);
-            var selectors = ChooseSelectors(uri);
-            var title = document.QuerySelector(selectors.TitleSelector).TextContent;
-            var ingredients = document.QuerySelectorAll(selectors.IngredientSelector).Select(x => x.TextContent);
-            var directions = document.QuerySelectorAll(selectors.DirectionSelector).Select(x => x.TextContent).ToList();
+            var title = document.QuerySelector(profile.TitleSelector).TextContent;
+            var ingredients = document.QuerySelectorAll(profile.IngredientSelector).Select(x => x.TextContent);
+            var directions = document.QuerySelectorAll(profile.DirectionSelector).Select(x => x.TextContent).ToList();
 
-            return new Recipe
+            return new RecipeDto
             {
                 Title = title,
                 Ingredients = ingredients,
                 Directions = directions
             };
         }
-
-        private static RecipeCssSelectors ChooseSelectors(Uri uri)
-        {
-            return uri.Host switch
-            {
-                "cookieandkate.com" => CookieAndKate,
-                _ => null,
-            };
-        }
-
-        private static readonly RecipeCssSelectors CookieAndKate = new RecipeCssSelectors { TitleSelector = "h1.entry-title", DirectionSelector = "div.tasty-recipe-instructions li", IngredientSelector = "div.tasty-recipe-ingredients li" };
     }
 
 }

@@ -41,10 +41,11 @@ namespace RecipeMd.Api
 
             services.AddHealthChecks();
 
-            services.AddTransient<IRecipeDocumentTranslator, RecipeDocumentTranslator>();
+            services.AddTransient<IRecipeService, RecipeService>();
+            services.AddTransient<IMetadataService, MetadataService>();
+            services.AddTransient<Domain.Interfaces.IConfigurationProvider, Domain.Services.ConfigurationProvider>();
             services.AddTransient<IParser, Parser>();
-            services.AddTransient<IMarkdownGenerator, MarkdownGenerator>(services => new MarkdownGenerator(System.IO.File.ReadAllText(Configuration["handlebarsTemplatePath"])));
-
+            services.AddTransient<IMarkdownGenerator, MarkdownGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,15 +74,6 @@ namespace RecipeMd.Api
             });
 
             app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            // app.UseSpaStaticFiles(new StaticFileOptions
-            // {
-            // OnPrepareResponse = context =>
-            // {
-            //     context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
-            //     context.Context.Response.Headers.Add("Expires", "0");
-            // }
-            // });
 
             app.UseRouting();
             app.UseResponseCaching();
