@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using RecipeMd.Backend;
 using RecipeMd.Domain.Interfaces;
 using RecipeMd.Domain.Services;
@@ -31,10 +30,7 @@ namespace RecipeMd.Api
                 options.OutputFormatters.Insert(0, new MarkdownOutputFormatter());
             });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RecipeMd", Version = "v1" });
-            });
+            services.AddOpenApiDocument();
 
             // In production, the React files will be served from this directory
             // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
@@ -54,8 +50,8 @@ namespace RecipeMd.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RecipeMd v1"));
+                app.UseOpenApi();
+                app.UseSwaggerUi3();
             }
             else
             {
