@@ -14,4 +14,4 @@ jobs:
         with:
           dotnet-version: 5.0.x
       - name: run tests
-        run: dotnet test -c release
+        run: dotnet test -c release --filter snapshot
