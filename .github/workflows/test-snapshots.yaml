@@ -14,5 +14,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x
+
       - name: run tests
-        run: dotnet test -c release --filter snapshot service/
+        run: dotnet test -c release --filter snapshot --logger="junit;LogFilePath=TestResults/results.xml" service/
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: service/**/TestResults/*.xml
