@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeMd.Backend", "RecipeM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeMd.Client", "RecipeMd.Client\RecipeMd.Client.csproj", "{0CD3DF93-F95B-498C-B2BA-DD7A905000FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeMd.Api.Test", "RecipeMd.Api.Test\RecipeMd.Api.Test.csproj", "{27D4CC0A-061D-4472-84B4-08308046092D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0CD3DF93-F95B-498C-B2BA-DD7A905000FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD3DF93-F95B-498C-B2BA-DD7A905000FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD3DF93-F95B-498C-B2BA-DD7A905000FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D4CC0A-061D-4472-84B4-08308046092D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D4CC0A-061D-4472-84B4-08308046092D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D4CC0A-061D-4472-84B4-08308046092D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D4CC0A-061D-4472-84B4-08308046092D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

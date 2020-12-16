@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 using RecipeMd.Domain.Interfaces;
 using System;
 using System.Threading;
@@ -18,7 +19,7 @@ namespace RecipeMd.Api.Controllers
 
         [HttpGet]
         [Route("{*uri}")]
-        [Produces("text/markdown")]
+        //[Produces("text/plain")]
         public Task<string> Get(string uri, CancellationToken cancellationToken)
         {
             return recipeService.TranslateToMarkdownAsync(new Uri($"https://{uri}"), cancellationToken);
