@@ -17,6 +17,8 @@ jobs:
 
       - name: run tests
         run: dotnet test -c release --filter snapshot --logger="junit;LogFilePath=TestResults/results.xml" service/
+        env:
+          SNAPSHOOTER_STRICT_MODE: true
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1.6
