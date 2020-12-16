@@ -1,4 +1,4 @@
-name: test-snapshots.yaml
+name: test-snapshots
 
 on:
   schedule:
