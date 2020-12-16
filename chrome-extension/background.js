@@ -1,18 +1,20 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 "use strict";
 
-chrome.runtime.onInstalled.addListener(function () {
+chrome.runtime.onStartup.addListener(async () => {
+  const uri = "https://recipe-md.azurewebsites.net/metadata/supportedsites";
+  const response = await fetch(uri);
+  const supportedSites = response.json();
+  const conditions = supportedSites.map(
+    (site) =>
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: { hostEquals: site },
+      })
+  );
+
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([
       {
-        conditions: [
-          new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostEquals: "cookieandkate.com" },
-          }),
-        ],
+        conditions,
         actions: [new chrome.declarativeContent.ShowPageAction()],
       },
     ]);
