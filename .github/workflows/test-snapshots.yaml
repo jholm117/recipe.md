@@ -2,7 +2,7 @@ name: test-snapshots.yaml
 
 on:
   schedule:
-    - '*/5 * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   test:
