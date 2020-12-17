@@ -1,5 +1,6 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jholm117/recipe.md)
 ![test-snapshots](https://github.com/jholm117/recipe.md/workflows/test-snapshots/badge.svg)
+![build](https://github.com/jholm117/recipe.md/workflows/ci/badge.svg)
 
 # recipe.md
 
@@ -30,6 +31,5 @@
 - add recipe author to template
 - add source url to template
 - get deploy pipeline IaC
-- run snapshot test job on schedule
 - add react frontend
 - serve recipes in html (MarkdownSharp)
