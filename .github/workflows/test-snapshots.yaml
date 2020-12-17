@@ -1,9 +1,9 @@
 name: test-snapshots
 
 on:
-  workflow_dispatch:    
+  workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: "0 13 * * *"
 
 jobs:
   test:
