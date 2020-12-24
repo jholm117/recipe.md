@@ -8,9 +8,9 @@ namespace RecipeMd.Api.Controllers
     [Route("[controller]/[action]")]
     public class MetadataController : ControllerBase
     {
-        private readonly IMetadataService metadataService;
+        private readonly IMetadataPresenter metadataService;
 
-        public MetadataController(IMetadataService metadataService)
+        public MetadataController(IMetadataPresenter metadataService)
         {
             this.metadataService = metadataService;
         }

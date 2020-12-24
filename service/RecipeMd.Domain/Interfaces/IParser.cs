@@ -8,7 +8,7 @@ namespace RecipeMd.Domain.Interfaces
 {
     public interface IParser
     {
-        public Task<RecipeDto> ParseRecipeHtml(Uri uri, IRecipeSiteProfile profile, CancellationToken cancellationToken);
+        public Task<RecipeDto> ParseRecipeHtml(Uri uri, DomainSelectors profile, CancellationToken cancellationToken);
     }
 
 }

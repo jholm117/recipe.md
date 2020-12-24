@@ -12,23 +12,35 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="handlebars-templates\recipe-template.handlebars" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="handlebars-templates\recipe-template.handlebars">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
 		<PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
 		<PackageReference Include="NSwag.MSBuild" Version="13.9.4">
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		  <PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\RecipeMd.Domain\RecipeMd.Domain.csproj" />
-	  <ProjectReference Include="..\RecipeMd.Backend\RecipeMd.Backend.csproj" />
+		<ProjectReference Include="..\RecipeMd.Domain\RecipeMd.Domain.csproj" />
+		<ProjectReference Include="..\RecipeMd.Backend\RecipeMd.Backend.csproj" />
 	</ItemGroup>
-	
+	<!--
+
   <Target Name="NSwag" AfterTargets="Build">
     <Exec Command="$(NSwagExe_Net50) run nswag.json /variables:Configuration=$(Configuration),CSharpOutputPath=$(MSBuildThisFileDirectory)..\RecipeMd.Client" />
   </Target>
+  -->
 
 </Project>

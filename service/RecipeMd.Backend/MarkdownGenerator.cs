@@ -9,7 +9,7 @@ namespace RecipeMd.Backend
     {
         private readonly Func<object, string> template;
 
-        public MarkdownGenerator(IConfigurationProvider configurationProvider)
+        public MarkdownGenerator(ITemplateProvider configurationProvider)
         {
             Handlebars.RegisterHelper("inc", (writer, context, parameters) => writer.WriteSafeString($"{(int)parameters[0] + 1}"));
             template = Handlebars.Compile(configurationProvider.HandlebarsTemplateSource);

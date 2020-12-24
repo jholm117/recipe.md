@@ -10,20 +10,22 @@ namespace RecipeMd.Backend
 {
     public class Parser : IParser
     {
-        public async Task<RecipeDto> ParseRecipeHtml(Uri uri, IRecipeSiteProfile profile, CancellationToken cancellationToken)
+        public async Task<RecipeDto> ParseRecipeHtml(Uri uri, DomainSelectors profile, CancellationToken cancellationToken)
         {
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
             var document = await context.OpenAsync(uri.OriginalString, cancellation: cancellationToken);
-            var title = document.QuerySelector(profile.TitleSelector).TextContent;
-            var ingredients = document.QuerySelectorAll(profile.IngredientSelector).Select(x => x.TextContent);
-            var directions = document.QuerySelectorAll(profile.DirectionSelector).Select(x => x.TextContent).ToList();
+            var title = document.QuerySelector(profile.TitleSelector).TextContent.Trim();
+            var ingredients = document.QuerySelectorAll(profile.IngredientSelector).Select(x => x.TextContent.Trim());
+            var directions = document.QuerySelectorAll(profile.DirectionSelector).Select(x => x.TextContent.Trim()).ToList();
+            var url = uri.ToString();
 
             return new RecipeDto
             {
                 Title = title,
                 Ingredients = ingredients,
-                Directions = directions
+                Directions = directions,
+                Url = url
             };
         }
     }

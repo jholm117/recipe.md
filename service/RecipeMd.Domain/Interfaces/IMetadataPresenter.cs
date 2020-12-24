@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace RecipeMd.Domain.Interfaces
 {
-    public interface IMetadataService
+    public interface IMetadataPresenter
     {
         public IEnumerable<string> SupportedSites { get; }
     }

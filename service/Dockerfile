@@ -11,6 +11,7 @@ RUN dotnet restore
 
 COPY . .
 
+ENV SNAPSHOOTER_STRICT_MODE=true
 RUN dotnet test -c release --no-restore
 
 RUN dotnet publish -c release -o /app --no-restore

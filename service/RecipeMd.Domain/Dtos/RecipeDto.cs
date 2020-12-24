@@ -7,6 +7,7 @@ namespace RecipeMd.Domain.Dtos
         public string Title { get; set; }
         public IList<string> Directions { get; set; }
         public IEnumerable<string> Ingredients { get; set; }
+        public string Url { get; set; }
     }
 
 }

@@ -4,11 +4,11 @@ using RecipeMd.Domain.Interfaces;
 
 namespace RecipeMd.Domain.Services
 {
-    public class MetadataService : IMetadataService
+    public class MetadataPresenter : IMetadataPresenter
     {
-        private readonly IConfigurationProvider profileProvider;
+        private readonly IDomainSelectorProvider profileProvider;
 
-        public MetadataService(IConfigurationProvider profiles)
+        public MetadataPresenter(IDomainSelectorProvider profiles)
         {
             this.profileProvider = profiles;
         }

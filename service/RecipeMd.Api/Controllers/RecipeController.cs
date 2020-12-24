@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
+using RecipeMd.Domain.Dtos;
 using RecipeMd.Domain.Interfaces;
 using System;
 using System.Threading;
@@ -11,19 +11,18 @@ namespace RecipeMd.Api.Controllers
     [Route("[controller]")]
     public class RecipeController : ControllerBase
     {
-        private readonly IRecipeService recipeService;
-        public RecipeController(IRecipeService recipeService)
+        private readonly IRecipePresenter recipeService;
+        public RecipeController(IRecipePresenter recipeService)
         {
             this.recipeService = recipeService;
         }
 
         [HttpGet]
         [Route("{*uri}")]
-        //[Produces("text/plain")]
-        public Task<string> Get(string uri, CancellationToken cancellationToken)
+        [Produces("text/markdown", "application/json", "text/html")]
+        public Task<RecipeDto> Get(string uri, CancellationToken cancellationToken)
         {
-            return recipeService.TranslateToMarkdownAsync(new Uri($"https://{uri}"), cancellationToken);
+            return recipeService.RecipeAsync(new Uri($"https://{uri}"), cancellationToken);
         }
     }
-
 }

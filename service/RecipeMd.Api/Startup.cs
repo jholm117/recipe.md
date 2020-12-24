@@ -25,23 +25,27 @@ namespace RecipeMd.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options =>
+            services.AddTransient<IRecipePresenter, RecipePresenter>();
+            services.AddTransient<IMetadataPresenter, MetadataPresenter>();
+            services.AddTransient<IParser, Parser>();
+            services.AddTransient<IDomainSelectorProvider, DomainSelectorProvider>();
+            var markdownGenerator = new MarkdownGenerator(new TemplateProvider("handlebars-templates/recipe-template.handlebars"));
+            var markdownProcessor = new MarkdownProcessor();
+            services.AddControllers((options) =>
             {
-                options.OutputFormatters.Insert(0, new MarkdownOutputFormatter());
+                options.RespectBrowserAcceptHeader = true;
+                options.ReturnHttpNotAcceptable = true;
+
+                options.OutputFormatters.Insert(0, new MarkdownOutputFormatter(markdownGenerator, markdownProcessor));
             });
 
             services.AddOpenApiDocument();
 
+            services.AddHealthChecks();
             // In production, the React files will be served from this directory
             // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
 
-            services.AddHealthChecks();
 
-            services.AddTransient<IRecipeService, RecipeService>();
-            services.AddTransient<IMetadataService, MetadataService>();
-            services.AddTransient<Domain.Interfaces.IConfigurationProvider, Domain.Services.ConfigurationProvider>();
-            services.AddTransient<IParser, Parser>();
-            services.AddTransient<IMarkdownGenerator, MarkdownGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +73,7 @@ namespace RecipeMd.Api
                 };
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseResponseCaching();

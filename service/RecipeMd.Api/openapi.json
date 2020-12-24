@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/RecipeDto"
                 }
               }
             }
@@ -62,5 +62,36 @@
       }
     }
   },
-  "components": {}
+  "components": {
+    "schemas": {
+      "RecipeDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "directions": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    }
+  }
 }
